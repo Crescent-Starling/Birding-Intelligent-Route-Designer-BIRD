@@ -152,7 +152,7 @@ def build_future_destinations() -> list[FutureDestinationItem]:
             destination="埃及尼罗河流域",
             best_season="10-3 月",
             expected_value="中高",
-            notes="适合整合到后续 Trip Mode。",
+            notes="适合整合到后续 World Mode。",
         ),
     ]
 

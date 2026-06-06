@@ -6,12 +6,12 @@ It helps turn scattered bird records, route constraints, seasonal knowledge, and
 
 BIRD is organized around two core modes:
 
-- `Twitch`: short-horizon rare-bird chasing and opportunity-window decisions
-- `Travel`: long-horizon birding travel and lifetime-scale planning
+- `Twitcher Mode`: short-horizon rare-bird chasing and opportunity-window decisions
+- `World Mode`: long-horizon birding travel and lifetime-scale planning
 
 Both modes are backed by the `Flyway Atlas`, a growing modeling layer for birding sites, seasonal windows, access conditions, travel cost, and coverage value.
 
-The current repository implements the `Twitch` prototype and lays the foundation for `Travel` and the `Flyway Atlas`.
+The current repository implements the `Twitcher Mode` prototype and lays the foundation for `World Mode` and the `Flyway Atlas`.
 
 This repository currently contains a `v0.1` monorepo prototype with:
 
@@ -28,7 +28,7 @@ This repository currently contains a `v0.1` monorepo prototype with:
 
 ## What Is Implemented
 
-- A `Twitch` workbench focused on `alert -> evidence -> decision -> planning -> archive`
+- A `Twitcher Mode` workbench focused on `alert -> evidence -> decision -> planning -> archive`
 - Canonical domain models for users, alerts, observation signals, decisions, route plans, and future destinations
 - A sample `白斑军舰鸟` event showing how BIRD should reason about `GO / GO_WITH_RISK / SKIP / SAVE_FOR_FUTURE_TRIP`
 - Connector abstractions for `WeChat`, `Xiaohongshu`, `eBird`, `BirdReport`, search, maps, and weather
@@ -37,9 +37,9 @@ This repository currently contains a `v0.1` monorepo prototype with:
 
 ## Product Direction
 
-The next major product pillar is `Travel`, which expands BIRD from immediate twitching decisions to lifetime-scale birding coverage planning.
+The next major product pillar is `World Mode`, which expands BIRD from immediate twitching decisions to lifetime-scale birding coverage planning.
 
-At the center of `Travel` is the `Flyway Atlas`:
+At the center of `World Mode` is the `Flyway Atlas`:
 
 - internally, the atlas and optimization infrastructure for world-scale birding planning
 - externally, the flagship narrative that helps users imagine and generate their own personalized path across a limited birding life
@@ -110,7 +110,7 @@ Set `NEXT_PUBLIC_BIRD_API_URL=http://127.0.0.1:8000` to have the frontend call t
 
 - [Chinese Overview](docs/README.zh-CN.md)
 - [PRD](docs/PRD.md)
-- [Travel / World Planning](docs/WORLD_MODE_PRD.md)
+- [World Mode Planning](docs/WORLD_MODE_PRD.md)
 - [Flyway Atlas v1 Schema](docs/FLYWAY_ATLAS_V1_SCHEMA.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Versioning](docs/VERSIONING.md)

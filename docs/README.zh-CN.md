@@ -11,10 +11,10 @@
 
 ## 当前结构
 
-- `Twitch`
+- `Twitcher Mode`
   - 面向短期决策
   - 关注鸟讯、时间窗口、路线、天气、风险和机会成本
-- `Travel`
+- `World Mode`
   - 面向中长期旅行规划
   - 关注目的地、季节、成本、交通与潜在新增物种价值
 - `Flyway Atlas`
@@ -29,7 +29,7 @@
 
 ## 当前进度
 
-- 已实现 `Twitch` 的原型工作台
+- 已实现 `Twitcher Mode` 的原型工作台
 - 已有 FastAPI 后端、Next.js 前端、共享类型和基础文档
 - 已接入 connector 配置框架，并初步打通 eBird 接口骨架
 - 已开始设计 `Flyway Atlas` 的第一版 schema
@@ -37,7 +37,7 @@
 ## 相关文档
 
 - [产品需求文档](PRD.md)
-- [Travel / World Planning](WORLD_MODE_PRD.md)
+- [World Mode Planning](WORLD_MODE_PRD.md)
 - [Flyway Atlas v1 Schema](FLYWAY_ATLAS_V1_SCHEMA.md)
 - [系统架构](ARCHITECTURE.md)
 - [Connector 配置说明](CONNECTOR_SETUP.md)

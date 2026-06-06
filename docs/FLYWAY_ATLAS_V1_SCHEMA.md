@@ -17,7 +17,7 @@ The goal of v1 is not to solve world birding perfectly. The goal is to create a 
 - `source provenance preserved`
 - `raw, normalized, and derived layers separated`
 - `coarse truth beats fake precision`
-- `schema should support both Twitch and Travel reuse where possible`
+- `schema should support both Twitcher Mode and World Mode reuse where possible`
 
 ## Scope of v1
 

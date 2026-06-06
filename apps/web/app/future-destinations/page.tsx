@@ -35,7 +35,7 @@ export default async function FutureDestinationsPage() {
             <div className="compact-item">
               <strong>Next step</strong>
               <p>
-                These entries become seed objects for the future `Trip Mode`, where the system
+                These entries become seed objects for the future `World Mode`, where the system
                 bundles species, seasons, and routes into longer birding itineraries.
               </p>
             </div>
@@ -45,4 +45,3 @@ export default async function FutureDestinationsPage() {
     </Shell>
   );
 }
-

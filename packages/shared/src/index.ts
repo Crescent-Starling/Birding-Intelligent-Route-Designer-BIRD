@@ -373,7 +373,7 @@ export const mockDashboard: WorkbenchSnapshot = {
       destination: "埃及尼罗河流域",
       bestSeason: "10-3 月",
       expectedValue: "中高",
-      notes: "适合整合到后续 Trip Mode。"
+      notes: "适合整合到后续 World Mode。"
     }
   ],
   archive: [
