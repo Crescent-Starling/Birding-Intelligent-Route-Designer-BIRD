@@ -17,7 +17,7 @@ The goal of v1 is not to solve world birding perfectly. The goal is to create a 
 - `source provenance preserved`
 - `raw, normalized, and derived layers separated`
 - `coarse truth beats fake precision`
-- `schema should support both Twitcher Mode and World Mode reuse where possible`
+- `schema should support reuse across both Twitch and Travel wherever possible`
 
 ## Scope of v1
 
@@ -411,7 +411,9 @@ Suggested fields:
 
 Flyway Atlas depends on user state, but those user tables do not have to live inside the atlas namespace.
 
-At minimum, World Mode needs access to:
+At minimum, Travel needs access to:
+
+These user-linked inputs should also remain reusable by Twitch, because deferred targets, archived outcomes, and target rankings are part of the cross-mode loop between short-horizon and long-horizon planning.
 
 - `user`
 - `user_life_list_species`

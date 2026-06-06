@@ -1,10 +1,12 @@
-# BIRD World Mode / Ten Thousand Birds Plan
+# BIRD Travel / World Mode / Ten Thousand Birds Plan
 
 ## Product Role
 
-`World Mode` is BIRD's long-horizon planning mode. It is designed for users who want to optimize future birding travel across regions, countries, or the entire world.
+`World Mode` is BIRD's long-horizon planning mode. In the current product language, this mode is surfaced as `Travel`. It is designed for users who want to optimize future birding travel across regions, countries, or the entire world.
 
-`Ten Thousand Birds Plan` (`万鸟计划`) is the infrastructure layer underneath World Mode:
+It should not be treated as a separate product from `Twitch`. Instead, it is the long-horizon half of the same decision system.
+
+`Ten Thousand Birds Plan` (`万鸟计划`) is the infrastructure layer underneath World Mode / Travel:
 
 - a global birding-site atlas
 - a species-coverage engine
@@ -16,6 +18,19 @@ Externally, `Ten Thousand Birds Plan` is also BIRD's flagship narrative:
 - "How would I see 95%+ of the world's birds?"
 - "What is the cheapest or fastest path to 10,000 species?"
 - "How would I build my own global birding plan around seabirds / pittas / antbirds / endemics?"
+
+## Relationship to Twitch
+
+`World Mode` should continuously exchange state with `Twitch`:
+
+- `Twitch -> World Mode / Travel`
+  - deferred birds become future trip candidates
+  - archived outcomes improve site, season, and access knowledge
+  - repeated event evidence strengthens the reusable planning base
+- `World Mode / Travel -> Twitch`
+  - seasonal priorities influence alert ranking
+  - destination watchlists affect near-term opportunity value
+  - long-horizon target plans help decide when to chase now versus wait for a better trip
 
 ## Primary User Stories
 
@@ -38,7 +53,7 @@ Externally, `Ten Thousand Birds Plan` is also BIRD's flagship narrative:
 
 ## Product Outputs
 
-World Mode should eventually produce four classes of output:
+World Mode / Travel should eventually produce four classes of output:
 
 1. `Atlas View`
 - global map of major birding sites
@@ -63,7 +78,7 @@ World Mode should eventually produce four classes of output:
 
 ## MVP Boundaries
 
-World Mode should not start with a true "global optimum to see 95% of all birds." That framing is compelling for marketing, but it is too large for the first usable version.
+World Mode / Travel should not start with a true "global optimum to see 95% of all birds." That framing is compelling for marketing, but it is too large for the first usable version.
 
 Recommended rollout:
 
@@ -95,7 +110,7 @@ Recommended rollout:
 
 ## Data Model
 
-World Mode should use a canonical graph-like data layer rather than ad hoc page-level JSON.
+World Mode / Travel should use a canonical graph-like data layer rather than ad hoc page-level JSON.
 
 The first concrete schema draft for this layer is documented in [FLYWAY_ATLAS_V1_SCHEMA.md](FLYWAY_ATLAS_V1_SCHEMA.md).
 
@@ -166,7 +181,7 @@ The first concrete schema draft for this layer is documented in [FLYWAY_ATLAS_V1
 
 ## Data Acquisition Strategy
 
-The hardest part of World Mode is not the UI. It is building and maintaining a usable world-scale atlas with enough coverage quality to support planning.
+The hardest part of World Mode / Travel is not the UI. It is building and maintaining a usable world-scale atlas with enough coverage quality to support planning.
 
 The practical strategy should be `layered`, `provenance-aware`, and `incremental`.
 
@@ -341,13 +356,13 @@ Update cadence:
 
 ### Principle
 
-World Mode should prefer `stability` over `false real-time precision`.
+World Mode / Travel should prefer `stability` over `false real-time precision`.
 
-Twitcher Mode is the real-time layer. World Mode is the strategic layer.
+Twitch is the real-time layer. World Mode / Travel is the strategic layer.
 
 ## Algorithms
 
-World Mode needs several algorithm families, not one single "master optimizer."
+World Mode / Travel needs several algorithm families, not one single "master optimizer."
 
 ### 1. Coverage Curve Construction
 
@@ -435,7 +450,7 @@ This is one of the biggest product advantages because it turns the atlas into a 
 
 ## Suggested Technical Stack
 
-The current BIRD stack can support a first World Mode foundation.
+The current BIRD stack can support a first World Mode / Travel foundation.
 
 ### Storage
 
@@ -461,7 +476,7 @@ Each stage should store versioned outputs so recommendations remain explainable.
 
 ## Explainability Requirements
 
-World Mode is only useful if it can explain itself.
+World Mode / Travel is only useful if it can explain itself.
 
 Every recommendation should be able to answer:
 

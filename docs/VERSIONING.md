@@ -3,7 +3,7 @@
 ## Product Versions
 
 - `0.x`: rapid iteration, schema changes allowed
-- `1.0`: stable `Twitcher Mode`
+- `1.0`: stable `Twitch`
 - Later majors add new modes or incompatible contracts
 
 ## API Versioning
@@ -45,4 +45,3 @@ For every release, capture:
 - changed scoring weights or thresholds
 - API contract changes
 - migration requirements
-

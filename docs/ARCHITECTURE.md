@@ -8,10 +8,10 @@ BIRD is currently implemented as a `modular monolith` with explicit seams for la
 - `apps/web`: operator-facing workbench
 - `packages/shared`: frontend-facing contracts and mock fixtures
 
-The current codebase implements `Twitcher Mode`, but the product architecture should support two long-term modes on the same foundation:
+The current codebase implements `Twitch`, but the product architecture should support two long-term modes on the same foundation:
 
-- `Twitcher Mode`: event-driven short-horizon decisions
-- `World Mode`: atlas-driven long-horizon global planning
+- `Twitch`: event-driven short-horizon decisions
+- `Travel`: atlas-driven long-horizon global planning
 
 ## Core Modules
 
@@ -23,7 +23,7 @@ The current codebase implements `Twitcher Mode`, but the product architecture sh
 - `app/services/planning.py`: route planning synthesis
 - `app/services/orchestrator.py`: workbench snapshot assembly
 
-Future `World Mode` modules should be added alongside these primitives rather than as a separate stack:
+Future `Travel` modules should be added alongside these primitives rather than as a separate stack:
 
 - `world_atlas`: global birding-site catalog, seasonality, and access metadata
 - `coverage_engine`: marginal species gain, clade coverage, and user-specific value ranking
@@ -40,8 +40,13 @@ Future `World Mode` modules should be added alongside these primitives rather th
 
 The future frontend split should remain mode-based, not product-based:
 
-- `Twitcher Mode` workbench for alerts, events, and near-term logistics
-- `World Mode` workbench for atlas exploration, seasonal maps, and long-horizon coverage planning
+- `Twitch` workbench for alerts, events, and near-term logistics
+- `Travel` workbench for atlas exploration, seasonal maps, and long-horizon coverage planning
+
+These two mode surfaces should exchange state rather than operate as silos:
+
+- `Twitch -> Travel`: deferred targets, archived outcomes, and accumulated site evidence
+- `Travel -> Twitch`: target rankings, seasonal priorities, and destination watchlists
 
 ## Agent Mapping
 
@@ -54,7 +59,7 @@ The v0.1 code models the agent system as service modules:
 - `Planning Agent`: day-of logistics synthesis
 - `Archive Agent`: post-trip memory and reuse
 
-Future `World Mode` agent additions should include:
+Future `Travel` agent additions should include:
 
 - `Atlas Agent`: curates and scores high-value birding sites globally
 - `Coverage Agent`: estimates species or clade coverage gain by site, season, and trip bundle
@@ -74,13 +79,20 @@ The first schema draft for this layer lives in [FLYWAY_ATLAS_V1_SCHEMA.md](FLYWA
 5. The planning service emits a `RoutePlan`
 6. The orchestrator returns a `WorkbenchSnapshot`
 
-For `World Mode`, the analogous flow should be:
+For `Travel`, the analogous flow should be:
 
 1. Global site sources and species-distribution datasets feed a `World Atlas`
 2. Seasonal, geographic, and cost metadata attach to each candidate site
 3. User profile, life list, and target interests feed a `Coverage Engine`
 4. The planner emits ranked site sets, seasonal map layers, and route candidates
-5. The world orchestrator returns a personalized `World Mode` planning snapshot
+5. The world orchestrator returns a personalized `Travel` planning snapshot
+
+The long-term target architecture should also include an explicit cross-mode loop:
+
+1. `Twitch` produces decisions, route outcomes, archive entries, and deferred-target candidates
+2. Deferred targets and archived evidence update `Travel` priorities and atlas-linked user state
+3. `Travel` produces seasonal plans, destination watchlists, and target rankings
+4. Those priorities feed back into `Twitch` alert ranking and opportunity evaluation
 
 ## Ten Thousand Birds Plan as Infrastructure
 
@@ -93,7 +105,7 @@ It should provide:
 - rough travel cost and access layers
 - optimization support for `lowest cost`, `shortest time`, and `highest personal coverage` planning
 
-Its public visibility may be high, but architecturally it should remain a shared foundation for `World Mode`.
+Its public visibility may be high, but architecturally it should remain a shared foundation for `Travel` and a reusable intelligence layer for `Twitch`.
 
 ## Dependency Baseline
 

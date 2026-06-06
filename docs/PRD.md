@@ -6,10 +6,10 @@
 
 BIRD is one product with two long-term operating modes:
 
-- `Twitcher Mode`: short-horizon rare-bird chasing and near-term decision support
-- `World Mode`: long-horizon global birding coverage and long-distance trip planning
+- `Twitch`: short-horizon rare-bird chasing and near-term decision support
+- `Travel`: long-horizon global birding coverage and long-distance trip planning
 
-The first implemented mode is `Twitcher Mode`, optimized for rare-bird chasing in China with support for global reference data.
+The first implemented mode is `Twitch`, optimized for rare-bird chasing in China with support for global reference data.
 
 ## Target User
 
@@ -28,7 +28,7 @@ The first implemented mode is `Twitcher Mode`, optimized for rare-bird chasing i
 
 ## Product Modes
 
-### Twitcher Mode
+### Twitch
 
 - Core question: `Should I go for this bird now?`
 - Time horizon: hours to days
@@ -38,7 +38,7 @@ The first implemented mode is `Twitcher Mode`, optimized for rare-bird chasing i
   - same-day or short-horizon logistics
   - evidence-backed explanations
 
-### World Mode
+### Travel
 
 - Core question: `How should I plan future birding travel to see the most birds that matter to me?`
 - Time horizon: months to years
@@ -49,9 +49,22 @@ The first implemented mode is `Twitcher Mode`, optimized for rare-bird chasing i
   - multi-stop trip candidates
   - personalized long-distance coverage plans
 
+## Mode Interaction
+
+`Twitch` and `Travel` are two interacting modes of the same product, not separate tools.
+
+- `Twitch -> Travel`
+  - events that are skipped, missed, or intentionally deferred should become future planning inputs
+  - archived outcomes and field notes should improve long-horizon destination judgment
+  - repeated evidence around sites, seasons, and logistics should accumulate reusable planning knowledge
+- `Travel -> Twitch`
+  - long-horizon priorities should affect short-horizon alert ranking
+  - destination watchlists and target species plans should influence whether a new bird signal is considered high value
+  - seasonal strategy should help decide when a near-term opportunity is worth chasing versus saving for a better future trip
+
 ## Ten Thousand Birds Plan
 
-`Ten Thousand Birds Plan` (`万鸟计划`) is not a separate product. It is the foundational infrastructure layer for `World Mode`.
+`Ten Thousand Birds Plan` (`万鸟计划`) is not a separate product. It is the foundational infrastructure layer for `Travel`.
 
 Internally, it should be treated as:
 
@@ -67,12 +80,12 @@ Externally, it can act as BIRD's flagship narrative and growth hook:
 
 This dual role is intentional:
 
-- `inside the product`: infrastructure for World Mode
+- `inside the product`: infrastructure for Travel
 - `outside the product`: an aspirational, shareable entry point that communicates BIRD's long-term vision
 
-## World Mode Foundation
+## Travel Foundation
 
-The first conceptual layer of `World Mode` is a global coverage atlas built from leading birding sites worldwide. The initial design target is `top 1000` sites, but this number should remain adjustable if needed to cover `95%+` of extant bird species.
+The first conceptual layer of `Travel` is a global coverage atlas built from leading birding sites worldwide. The initial design target is `top 1000` sites, but this number should remain adjustable if needed to cover `95%+` of extant bird species.
 
 Each site should eventually support:
 
@@ -89,7 +102,7 @@ The atlas must support two planning directions:
 
 ## v0.1 Scope
 
-- Single mode: `Twitcher Mode`
+- Single mode: `Twitch`
 - Single primary sample event: `白斑军舰鸟`
 - Rule-based decision engine
 - Mockable connectors with backend-first contracts
@@ -101,11 +114,11 @@ The atlas must support two planning directions:
 - Assisted ingestion for WeChat and Xiaohongshu screenshots or pasted text
 - More events and user profiles
 - Real async jobs, alerts, and email
-- `World Mode` built on the same evidence, mapping, and decision layers
-- `Ten Thousand Birds Plan` as the atlas and optimization foundation for World Mode
-- A dedicated `World Mode` specification in [WORLD_MODE_PRD.md](WORLD_MODE_PRD.md)
+- `Travel` built on the same evidence, mapping, and decision layers
+- `Ten Thousand Birds Plan` as the atlas and optimization foundation for Travel
+- A dedicated `Travel / World Planning` specification in [WORLD_MODE_PRD.md](WORLD_MODE_PRD.md)
 
-## World Mode Roadmap
+## Travel Roadmap
 
 ### Phase 1: Atlas
 

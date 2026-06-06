@@ -81,11 +81,15 @@ flowchart LR
         J --> K["Coverage and season analysis"]
         K --> L["Destination and route comparison"]
         L --> M["Travel plan candidates"]
+        M --> N["Seasonal priorities / destination watchlist"]
     end
 
     D -. reusable evidence .-> J
     H -. deferred targets .-> J
+    N -. influences future alerts and prioritization .-> A
 ```
+
+Twitch and Travel are not separate products. Twitch captures immediate opportunities, while Travel absorbs deferred targets, archived outcomes, and accumulated evidence to shape longer-horizon plans. In return, Travel feeds seasonal priorities and destination watchlists back into Twitch so near-term decisions reflect longer-term goals.
 
 ## Why BIRD
 
@@ -115,6 +119,11 @@ This means `Flyway Atlas` is both:
 
 - a foundation for long-distance planning
 - a user-facing growth hook that invites customization rather than a fixed universal route
+
+`Twitch` and `Travel` should evolve as two interacting modes on the same foundation:
+
+- `Twitch -> Travel`: deferred targets, archived outcomes, and field evidence should enrich long-horizon planning
+- `Travel -> Twitch`: seasonal priorities, destination watchlists, and target rankings should influence short-horizon alerting and decision support
 
 ## Chinese Overview
 
