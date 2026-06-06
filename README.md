@@ -20,6 +20,54 @@ This repository currently contains a `v0.1` monorepo prototype with:
 - `packages/shared`: shared TypeScript contracts and mock domain data for frontend development
 - `docs`: PRD, architecture notes, and versioning rules
 
+## System Architecture
+
+```mermaid
+flowchart LR
+    U["User / Birder"] --> W["Web Workbench<br/>Next.js"]
+    W --> API["BIRD API<br/>FastAPI"]
+
+    API --> ORCH["Orchestrator"]
+    API --> DEC["Decision Engine"]
+    API --> PLAN["Planning Service"]
+    API --> CONN["Connector Layer"]
+
+    CONN --> WECHAT["WeChat / Xiaohongshu<br/>assisted ingest"]
+    CONN --> EBIRD["eBird / BirdReport<br/>automatic sources"]
+    CONN --> MAPWX["Maps / Weather / Search"]
+
+    DEC --> DOMAIN["Domain Models<br/>alerts / events / signals / profile"]
+    PLAN --> DOMAIN
+    ORCH --> DOMAIN
+
+    DOMAIN --> TW["Twitcher Mode"]
+    DOMAIN --> WM["World Mode"]
+    WM --> ATLAS["Flyway Atlas<br/>site / season / access / coverage"]
+
+    TW --> OUT1["Decision / Route / Archive"]
+    WM --> OUT2["Atlas / Coverage / Trip Candidates"]
+```
+
+## Core Data Flow
+
+```mermaid
+flowchart TD
+    A["Bird signal or user clue<br/>WeChat / Xiaohongshu / eBird / BirdReport"] --> B["Connector ingestion"]
+    B --> C["ObservationSignal normalization"]
+    C --> D["BirdingEvent assembly"]
+    D --> E["Knowledge enrichment<br/>species background / alternatives / context"]
+    E --> F["Decision Engine scoring"]
+    F --> G["DecisionReport<br/>GO / GO_WITH_RISK / SKIP / SAVE_FOR_FUTURE_TRIP"]
+    G --> H["Planning Service"]
+    H --> I["RoutePlan / Future Destinations / Archive inputs"]
+    I --> J["WorkbenchSnapshot"]
+    J --> K["Twitcher Mode UI"]
+
+    D -. reusable evidence .-> L["World Mode foundation"]
+    L --> M["Flyway Atlas / Coverage Engine"]
+    M --> N["Long-horizon planning outputs"]
+```
+
 ## Why BIRD
 
 - `Systematic birding`: plan around evidence, timing, access, and long-term goals instead of isolated impulse decisions
