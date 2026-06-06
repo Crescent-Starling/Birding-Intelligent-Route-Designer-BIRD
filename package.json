@@ -1,0 +1,17 @@
+{
+  "name": "bird-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace @bird/web run dev",
+    "build:web": "npm --workspace @bird/web run build",
+    "typecheck:web": "npm --workspace @bird/web run typecheck",
+    "dev:api": "uvicorn app.main:app --reload --app-dir apps/api",
+    "test:api": "python3 -m pytest apps/api/tests"
+  }
+}
+
