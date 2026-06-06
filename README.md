@@ -1,20 +1,30 @@
 # BIRD
 
-`BIRD (Birding Intelligent Route Designer)` is a personal birding decision and planning system.
+`BIRD (Birding Intelligent Route Designer)` is a birding decision and planning system built for more sustainable and systematic birding.
 
-It is one product with two core modes:
+It helps turn scattered bird records, route constraints, seasonal knowledge, and personal priorities into usable birding plans, from short-horizon twitching decisions to lifetime-scale travel planning.
+
+BIRD is organized around two core modes:
 
 - `Twitch`: short-horizon rare-bird chasing and opportunity-window decisions
 - `Travel`: long-horizon birding travel and lifetime-scale planning
 
+Both modes are backed by the `Flyway Atlas`, a growing modeling layer for birding sites, seasonal windows, access conditions, travel cost, and coverage value.
+
 The current repository implements the `Twitch` prototype and lays the foundation for `Travel` and the `Flyway Atlas`.
 
-This repository implements a v0.1 monorepo prototype with:
+This repository currently contains a `v0.1` monorepo prototype with:
 
 - `apps/api`: FastAPI backend with Birding domain models, connector stubs, a rule-based decision engine, and sample v1 APIs
 - `apps/web`: Next.js workbench for alerts, events, future destinations, profile, and archive
 - `packages/shared`: shared TypeScript contracts and mock domain data for frontend development
 - `docs`: PRD, architecture notes, and versioning rules
+
+## Why BIRD
+
+- `Systematic birding`: plan around evidence, timing, access, and long-term goals instead of isolated impulse decisions
+- `Sustainable birding`: make better use of limited time, money, and energy, and reduce wasteful or low-value travel
+- `One continuous workflow`: move from `should I go now?` to `where should I go next?` to `how do I document what this meant?`
 
 ## What Is Implemented
 
@@ -38,6 +48,10 @@ This means `Flyway Atlas` is both:
 
 - a foundation for long-distance planning
 - a user-facing growth hook that invites customization rather than a fixed universal route
+
+## Chinese Overview
+
+For a short Chinese introduction, see [docs/README.zh-CN.md](docs/README.zh-CN.md).
 
 ## Repository Scope
 
@@ -94,6 +108,7 @@ Set `NEXT_PUBLIC_BIRD_API_URL=http://127.0.0.1:8000` to have the frontend call t
 
 ## Docs
 
+- [Chinese Overview](docs/README.zh-CN.md)
 - [PRD](docs/PRD.md)
 - [Travel / World Planning](docs/WORLD_MODE_PRD.md)
 - [Flyway Atlas v1 Schema](docs/FLYWAY_ATLAS_V1_SCHEMA.md)
