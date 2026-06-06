@@ -6,12 +6,12 @@ It helps turn scattered bird records, route constraints, seasonal knowledge, and
 
 BIRD is organized around two core modes:
 
-- `Twitcher Mode`: short-horizon rare-bird chasing and opportunity-window decisions
-- `World Mode`: long-horizon birding travel and lifetime-scale planning
+- `Twitch`: short-horizon rare-bird chasing and opportunity-window decisions
+- `Travel`: long-horizon birding travel and lifetime-scale planning
 
 Both modes are backed by the `Flyway Atlas`, a growing modeling layer for birding sites, seasonal windows, access conditions, travel cost, and coverage value.
 
-The current repository implements the `Twitcher Mode` prototype and lays the foundation for `World Mode` and the `Flyway Atlas`.
+The current repository implements the `Twitch` prototype and lays the foundation for `Travel` and the `Flyway Atlas`.
 
 This repository currently contains a `v0.1` monorepo prototype with:
 
@@ -23,49 +23,68 @@ This repository currently contains a `v0.1` monorepo prototype with:
 ## System Architecture
 
 ```mermaid
-flowchart LR
-    U["User / Birder"] --> W["Web Workbench<br/>Next.js"]
-    W --> API["BIRD API<br/>FastAPI"]
+flowchart TB
+    U["Birder"] --> UI["BIRD Workbench<br/>Next.js"]
 
-    API --> ORCH["Orchestrator"]
-    API --> DEC["Decision Engine"]
-    API --> PLAN["Planning Service"]
-    API --> CONN["Connector Layer"]
+    subgraph App["Application Layer"]
+        UI --> API["BIRD API<br/>FastAPI"]
+        API --> ORCH["Orchestrator"]
+        API --> DEC["Decision Engine"]
+        API --> PLAN["Planning Service"]
+    end
 
-    CONN --> WECHAT["WeChat / Xiaohongshu<br/>assisted ingest"]
-    CONN --> EBIRD["eBird / BirdReport<br/>automatic sources"]
-    CONN --> MAPWX["Maps / Weather / Search"]
+    subgraph Sources["Source Layer"]
+        CONN["Connector Layer"]
+        CONN --> S1["WeChat / Xiaohongshu<br/>assisted clues"]
+        CONN --> S2["eBird / BirdReport<br/>structured records"]
+        CONN --> S3["Maps / Weather / Search"]
+    end
 
-    DEC --> DOMAIN["Domain Models<br/>alerts / events / signals / profile"]
-    PLAN --> DOMAIN
+    API --> CONN
+
+    subgraph Core["Core Modeling Layer"]
+        DOMAIN["Domain Models<br/>profile / alerts / events / signals / plans"]
+        ATLAS["Flyway Atlas<br/>sites / seasons / access / cost / coverage"]
+    end
+
     ORCH --> DOMAIN
+    DEC --> DOMAIN
+    PLAN --> DOMAIN
+    DOMAIN <--> ATLAS
 
-    DOMAIN --> TW["Twitcher Mode"]
-    DOMAIN --> WM["World Mode"]
-    WM --> ATLAS["Flyway Atlas<br/>site / season / access / coverage"]
+    subgraph Modes["Product Modes"]
+        TW["Twitch"]
+        TR["Travel"]
+    end
 
-    TW --> OUT1["Decision / Route / Archive"]
-    WM --> OUT2["Atlas / Coverage / Trip Candidates"]
+    DOMAIN --> TW
+    DOMAIN --> TR
+    ATLAS --> TR
 ```
 
-## Core Data Flow
+## Core Planning Flows
 
 ```mermaid
-flowchart TD
-    A["Bird signal or user clue<br/>WeChat / Xiaohongshu / eBird / BirdReport"] --> B["Connector ingestion"]
-    B --> C["ObservationSignal normalization"]
-    C --> D["BirdingEvent assembly"]
-    D --> E["Knowledge enrichment<br/>species background / alternatives / context"]
-    E --> F["Decision Engine scoring"]
-    F --> G["DecisionReport<br/>GO / GO_WITH_RISK / SKIP / SAVE_FOR_FUTURE_TRIP"]
-    G --> H["Planning Service"]
-    H --> I["RoutePlan / Future Destinations / Archive inputs"]
-    I --> J["WorkbenchSnapshot"]
-    J --> K["Twitcher Mode UI"]
+flowchart LR
+    subgraph TwitchFlow["Twitch Flow"]
+        A["Bird signal or user clue"] --> B["Connector ingest"]
+        B --> C["ObservationSignal normalization"]
+        C --> D["BirdingEvent assembly"]
+        D --> E["Knowledge enrichment"]
+        E --> F["Decision scoring"]
+        F --> G["DecisionReport"]
+        G --> H["RoutePlan / Archive / Future destination candidate"]
+    end
 
-    D -. reusable evidence .-> L["World Mode foundation"]
-    L --> M["Flyway Atlas / Coverage Engine"]
-    M --> N["Long-horizon planning outputs"]
+    subgraph TravelFlow["Travel Flow"]
+        I["Target species / user priorities"] --> J["Flyway Atlas lookup"]
+        J --> K["Coverage and season analysis"]
+        K --> L["Destination and route comparison"]
+        L --> M["Travel plan candidates"]
+    end
+
+    D -. reusable evidence .-> J
+    H -. deferred targets .-> J
 ```
 
 ## Why BIRD
@@ -76,7 +95,7 @@ flowchart TD
 
 ## What Is Implemented
 
-- A `Twitcher Mode` workbench focused on `alert -> evidence -> decision -> planning -> archive`
+- A `Twitch` workbench focused on `alert -> evidence -> decision -> planning -> archive`
 - Canonical domain models for users, alerts, observation signals, decisions, route plans, and future destinations
 - A sample `白斑军舰鸟` event showing how BIRD should reason about `GO / GO_WITH_RISK / SKIP / SAVE_FOR_FUTURE_TRIP`
 - Connector abstractions for `WeChat`, `Xiaohongshu`, `eBird`, `BirdReport`, search, maps, and weather
@@ -85,9 +104,9 @@ flowchart TD
 
 ## Product Direction
 
-The next major product pillar is `World Mode`, which expands BIRD from immediate twitching decisions to lifetime-scale birding coverage planning.
+The next major product pillar is `Travel`, which expands BIRD from immediate twitching decisions to lifetime-scale birding coverage planning.
 
-At the center of `World Mode` is the `Flyway Atlas`:
+At the center of `Travel` is the `Flyway Atlas`:
 
 - internally, the atlas and optimization infrastructure for world-scale birding planning
 - externally, the flagship narrative that helps users imagine and generate their own personalized path across a limited birding life
@@ -158,7 +177,7 @@ Set `NEXT_PUBLIC_BIRD_API_URL=http://127.0.0.1:8000` to have the frontend call t
 
 - [Chinese Overview](docs/README.zh-CN.md)
 - [PRD](docs/PRD.md)
-- [World Mode Planning](docs/WORLD_MODE_PRD.md)
+- [Travel / World Planning](docs/WORLD_MODE_PRD.md)
 - [Flyway Atlas v1 Schema](docs/FLYWAY_ATLAS_V1_SCHEMA.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Versioning](docs/VERSIONING.md)
